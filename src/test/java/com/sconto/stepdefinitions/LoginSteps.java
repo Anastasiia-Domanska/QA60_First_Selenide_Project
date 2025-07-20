@@ -3,6 +3,7 @@ package com.sconto.stepdefinitions;
 import com.codeborne.selenide.Selenide;
 import com.sconto.pages.HomePage;
 import com.sconto.pages.LoginPage;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
@@ -31,5 +32,16 @@ public class LoginSteps {
     @Then("user verifies his name")
     public void verify_user_name(){
         login.verifyName();
+    }
+
+    @And("user enters valid email and wrong password")
+    public void enterWrongData(DataTable table) {
+        login = Selenide.page(LoginPage.class);
+        login.enterWrongData(table);
+    }
+
+    @Then("user verifies error message")
+    public void verify_eror_message() {
+        login.verifyErrorMessageIsDisplayed();
     }
 }
